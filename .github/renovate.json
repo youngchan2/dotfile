@@ -1,12 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", ":semanticCommitTypeAll(chore)"],
+  "extends": ["config:recommended", ":semanticCommitTypeAll(chore)"],
   "timezone": "Asia/Seoul",
   "labels": ["dependencies"],
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["^versions\\.yaml$"],
+      "managerFilePatterns": ["/^version\\.yaml$/"],
       "matchStrings": ["age_version:\\s*\"(?<currentValue>.*?)\""],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "FiloSottile/age",
@@ -14,7 +14,7 @@
     },
     {
       "customType": "regex",
-      "fileMatch": ["^versions\\.yaml$"],
+      "managerFilePatterns": ["/^version\\.yaml$/"],
       "matchStrings": ["bat_version:\\s*\"(?<currentValue>.*?)\""],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "sharkdp/bat",
@@ -22,7 +22,7 @@
     },
     {
       "customType": "regex",
-      "fileMatch": ["^versions\\.yaml$"],
+      "managerFilePatterns": ["/^version\\.yaml$/"],
       "matchStrings": ["delta_version:\\s*\"(?<currentValue>.*?)\""],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "dandavison/delta",
@@ -30,7 +30,7 @@
     },
     {
       "customType": "regex",
-      "fileMatch": ["^versions\\.yaml$"],
+      "managerFilePatterns": ["/^version\\.yaml$/"],
       "matchStrings": ["eza_version:\\s*\"(?<currentValue>.*?)\""],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "eza-community/eza",
@@ -38,7 +38,7 @@
     },
     {
       "customType": "regex",
-      "fileMatch": ["^versions\\.yaml$"],
+      "managerFilePatterns": ["/^version\\.yaml$/"],
       "matchStrings": ["nvim_version:\\s*\"(?<currentValue>.*?)\""],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "neovim/neovim",
@@ -46,7 +46,7 @@
     },
     {
       "customType": "regex",
-      "fileMatch": ["^versions\\.yaml$"],
+      "managerFilePatterns": ["/^version\\.yaml$/"],
       "matchStrings": ["gh_version:\\s*\"(?<currentValue>.*?)\""],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "cli/cli",
@@ -54,7 +54,7 @@
     },
     {
       "customType": "regex",
-      "fileMatch": ["^versions\\.yaml$"],
+      "managerFilePatterns": ["/^version\\.yaml$/"],
       "matchStrings": ["ripgrep_version:\\s*\"(?<currentValue>.*?)\""],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "BurntSushi/ripgrep",
@@ -62,7 +62,7 @@
     },
     {
       "customType": "regex",
-      "fileMatch": ["^versions\\.yaml$"],
+      "managerFilePatterns": ["/^version\\.yaml$/"],
       "matchStrings": ["fzf_version:\\s*\"(?<currentValue>.*?)\""],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "junegunn/fzf",
