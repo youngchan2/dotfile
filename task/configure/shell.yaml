@@ -3,30 +3,30 @@
   - name: Create symlink for ~/.rc.d
     file:
       src: "{{ dotfile_home }}/config/.rc.d"
-      dest: "{{ ansible_env.HOME }}/.rc.d"
+      dest: "{{ ansible_facts.env.HOME }}/.rc.d"
       state: link
       force: yes
   - name: Create symlink profile for bash
     file:
       src: "{{ dotfile_home }}/config/.profile"
-      dest: "{{ ansible_env.HOME }}/.bash_profile"
+      dest: "{{ ansible_facts.env.HOME }}/.bash_profile"
       state: link
       force: yes
   - name: Create symlink profile for zsh
     file:
       src: "{{ dotfile_home }}/config/.profile"
-      dest: "{{ ansible_env.HOME }}/.zprofile"
+      dest: "{{ ansible_facts.env.HOME }}/.zprofile"
       state: link
       force: yes
   - name: Create symlink rc for bash
     file:
       src: "{{ dotfile_home }}/config/.rc"
-      dest: "{{ ansible_env.HOME }}/.bashrc"
+      dest: "{{ ansible_facts.env.HOME }}/.bashrc"
       state: link
       force: yes
   - name: Create symlink rc for zsh
     file:
       src: "{{ dotfile_home }}/config/.rc"
-      dest: "{{ ansible_env.HOME }}/.zshrc"
+      dest: "{{ ansible_facts.env.HOME }}/.zshrc"
       state: link
       force: yes

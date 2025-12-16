@@ -3,16 +3,16 @@
   vars_files:
     - version.yaml
   vars:
-    dotfile_home: "{{ ansible_env.HOME }}/dotfile"
-    binary_home: "{{ ansible_env.LOCAL_BINARY_HOME | default(ansible_env.HOME ~ '/.local/bin') }}"
-    data_home: "{{ ansible_env.XDG_DATA_HOME | default(ansible_env.HOME ~ '/.local/share') }}"
-    config_home: "{{ ansible_env.XDG_CONFIG_HOME | default(ansible_env.HOME ~ '/.config') }}"
+    dotfile_home: "{{ ansible_facts.env.HOME }}/dotfile"
+    binary_home: "{{ ansible_facts.env.LOCAL_BINARY_HOME | default(ansible_facts.env.HOME ~ '/.local/bin') }}"
+    data_home: "{{ ansible_facts.env.XDG_DATA_HOME | default(ansible_facts.env.HOME ~ '/.local/share') }}"
+    config_home: "{{ ansible_facts.env.XDG_CONFIG_HOME | default(ansible_facts.env.HOME ~ '/.config') }}"
   tasks:
     - import_tasks: task/install/linux/base.yaml
       tags: install
-      when: ansible_system == 'Linux'
+      when: ansible_facts['system'] == 'Linux'
     - import_tasks: task/install/darwin/base.yaml
       tags: install
-      when: ansible_system == 'Darwin'
+      when: ansible_facts['system'] == 'Darwin'
     - import_tasks: task/configure/base.yaml
       tags: configure
