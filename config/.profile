@@ -55,6 +55,13 @@ export KUBECONFIG="$XDG_CONFIG_HOME/kube/config"
 # npm
 export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
 
+# nvm
+export NVM_DIR="$XDG_DATA_HOME/nvm"
+if [ -s "$NVM_DIR/nvm.sh" ]; then
+    . "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+fi
+
 # man
 if command -v bat &>/dev/null; then
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"

@@ -15,4 +15,6 @@
   import_tasks: ./ripgrep.yaml
 - name: Install fzf
   import_tasks: ./fzf.yaml
+- name: Install nvm and node
+  import_tasks: ./nvm.yaml
 

@@ -11,3 +11,5 @@
       - ripgrep
       - fzf
     state: present
+- name: Install nvm and node
+  import_tasks: ./nvm.yaml
