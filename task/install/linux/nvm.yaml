@@ -26,6 +26,7 @@
       dest: "{{ data_home }}/nvm"
       version: "v{{ nvm_version }}"
       depth: 1
+      recursive: no
     when: nvm_install
   - name: Check if node is installed
     shell: |
