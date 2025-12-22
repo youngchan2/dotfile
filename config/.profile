@@ -55,6 +55,12 @@ export KUBECONFIG="$XDG_CONFIG_HOME/kube/config"
 # npm
 export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
 
+# bun
+export BUN_INSTALL="$XDG_DATA_HOME/bun"
+if [ -d "$BUN_INSTALL" ]; then
+    export PATH="$BUN_INSTALL/bin:$PATH"
+fi
+
 # nvm
 export NVM_DIR="$XDG_DATA_HOME/nvm"
 if [ -s "$NVM_DIR/nvm.sh" ]; then

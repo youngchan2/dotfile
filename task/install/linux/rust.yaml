@@ -1,0 +1,8 @@
+---
+- name: Install Rust toolchain via rustup
+  shell: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+  args:
+    creates: "{{ data_home }}/rustup/settings.toml"
+  environment:
+    RUSTUP_HOME: "{{ data_home }}/rustup"
+    CARGO_HOME: "{{ data_home }}/cargo"
