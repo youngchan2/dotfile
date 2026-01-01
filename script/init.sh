@@ -97,7 +97,7 @@ create_directories() {
 install_packages() {
     cd "$HOME/dotfile"
 
-    if ansible-playbook init.yaml; then
+    if ansible-playbook -i localhost, init.yaml; then
         echo "packages installed successfully."
     else
         err "failed to install packages."
