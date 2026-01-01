@@ -1,5 +1,5 @@
 ---
-- name: Install packages  # noqa: syntax-check[unknown-module]
+- name: Install packages # noqa: syntax-check[unknown-module] fqcn[action-core]
   community.general.homebrew:
     name:
       - age

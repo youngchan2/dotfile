@@ -1,0 +1,10 @@
+---
+pre-commit:
+  parallel: false
+  commands:
+    ansible-lint:
+      glob: "*.yaml"
+      run: ansible-lint --fix --exclude task/install/darwin/base.yaml {staged_files}
+    prettier:
+      glob: "{config/.profile,config/.rc.d/*.{sh,bash},*.yaml}"
+      run: prettier --write {all_files}

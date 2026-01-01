@@ -1,3 +1,4 @@
+---
 - name: Initialize dotfiles
   hosts: localhost
   connection: local

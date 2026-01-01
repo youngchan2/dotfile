@@ -2,7 +2,7 @@
 - name: Configure git
   block:
     - name: Get git version
-      ansible.builtin.command: git version  # noqa: command-instead-of-module
+      ansible.builtin.command: git version # noqa: command-instead-of-module
       register: git_version_output
       changed_when: false
     - name: Parse git version

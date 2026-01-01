@@ -1,25 +1,25 @@
 #!/usr/bin/env sh
 
-if command -v bat >/dev/null 2>&1; then
-    alias cat='bat'
-    alias catp='bat --plain --paging=never'
+if command -v bat > /dev/null 2>&1; then
+  alias cat='bat'
+  alias catp='bat --plain --paging=never'
 fi
 
-if command -v eza >/dev/null 2>&1; then
-    alias ls='eza'
-    alias l='eza -l'
-    alias ll='eza -al'
-    alias la='eza -A'
-    alias lt='eza -alRT --no-user --level=2'
+if command -v eza > /dev/null 2>&1; then
+  alias ls='eza'
+  alias l='eza -l'
+  alias ll='eza -al'
+  alias la='eza -A'
+  alias lt='eza -alRT --no-user --level=2'
 fi
 
-if command -v zellij >/dev/null 2>&1; then
-    alias tm='zellij'
+if command -v zellij > /dev/null 2>&1; then
+  alias tm='zellij'
 fi
 
-if command -v nvim >/dev/null 2>&1; then
-    alias vim='nvim'
-    alias vi='nvim'
-elif command -v vim >/dev/null 2>&1; then
-    alias vi='vim'
+if command -v nvim > /dev/null 2>&1; then
+  alias vim='nvim'
+  alias vi='nvim'
+elif command -v vim > /dev/null 2>&1; then
+  alias vi='vim'
 fi

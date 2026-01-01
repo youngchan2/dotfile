@@ -1,3 +1,4 @@
+---
 name: Update binaries version
 on:
   schedule:

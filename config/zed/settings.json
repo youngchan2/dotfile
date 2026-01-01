@@ -154,12 +154,7 @@
       ]
     },
     "Shell Script": {
-      "formatter": {
-        "external": {
-          "command": "shfmt",
-          "arguments": ["--filename", "{buffer_path}", "--indent", "4"]
-        }
-      }
+      "tab_size": 2,
     }
   },
 
@@ -236,7 +231,7 @@
 
   /* Vim */
   "vim_mode": true,
-  "relative_line_numbers": true,
+  "relative_line_numbers": "enabled",
 
   /* Project Panel */
   "project_panel": {
