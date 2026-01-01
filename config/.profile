@@ -74,3 +74,6 @@ if command -v bat &> /dev/null; then
 else
   export MANPAGER="less -R"
 fi
+
+# claude code
+export CLAUDE_CONFIG_DIR="$XDG_CONFIG_HOME/claude"

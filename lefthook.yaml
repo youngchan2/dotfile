@@ -4,7 +4,7 @@ pre-commit:
   commands:
     ansible-lint:
       glob: "*.yaml"
-      run: ansible-lint --fix --exclude task/install/darwin/base.yaml {staged_files}
+      run: ansible-lint --fix --exclude task/install/darwin/base.yaml {staged_files} && git add {staged_files}
     prettier:
-      glob: "{config/.profile,config/.rc.d/*.{sh,bash},*.yaml}"
-      run: prettier --write {all_files}
+      glob: "{config/.profile,config/.rc.d/*.{sh,bash},*.yaml,*.json}"
+      run: prettier --write {staged_files} && git add {staged_files}

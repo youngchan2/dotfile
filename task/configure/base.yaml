@@ -11,3 +11,5 @@
   ansible.builtin.import_tasks: ./zed.yaml
 - name: Configure neovim
   ansible.builtin.import_tasks: ./nvim.yaml
+- name: Configure Claude Code
+  ansible.builtin.import_tasks: ./claude_code.yaml
