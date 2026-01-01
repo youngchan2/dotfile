@@ -1,32 +1,33 @@
 ---
-- block:
-  - name: Create symlink for ~/.rc.d
-    file:
-      src: "{{ dotfile_home }}/config/.rc.d"
-      dest: "{{ ansible_facts.env.HOME }}/.rc.d"
-      state: link
-      force: yes
-  - name: Create symlink profile for bash
-    file:
-      src: "{{ dotfile_home }}/config/.profile"
-      dest: "{{ ansible_facts.env.HOME }}/.bash_profile"
-      state: link
-      force: yes
-  - name: Create symlink profile for zsh
-    file:
-      src: "{{ dotfile_home }}/config/.profile"
-      dest: "{{ ansible_facts.env.HOME }}/.zprofile"
-      state: link
-      force: yes
-  - name: Create symlink rc for bash
-    file:
-      src: "{{ dotfile_home }}/config/.rc"
-      dest: "{{ ansible_facts.env.HOME }}/.bashrc"
-      state: link
-      force: yes
-  - name: Create symlink rc for zsh
-    file:
-      src: "{{ dotfile_home }}/config/.rc"
-      dest: "{{ ansible_facts.env.HOME }}/.zshrc"
-      state: link
-      force: yes
+- name: Configure shell
+  block:
+    - name: Create symlink for ~/.rc.d
+      ansible.builtin.file:
+        src: "{{ dotfile_home }}/config/.rc.d"
+        dest: "{{ ansible_facts.env.HOME }}/.rc.d"
+        state: link
+        force: true
+    - name: Create symlink profile for bash
+      ansible.builtin.file:
+        src: "{{ dotfile_home }}/config/.profile"
+        dest: "{{ ansible_facts.env.HOME }}/.bash_profile"
+        state: link
+        force: true
+    - name: Create symlink profile for zsh
+      ansible.builtin.file:
+        src: "{{ dotfile_home }}/config/.profile"
+        dest: "{{ ansible_facts.env.HOME }}/.zprofile"
+        state: link
+        force: true
+    - name: Create symlink rc for bash
+      ansible.builtin.file:
+        src: "{{ dotfile_home }}/config/.rc"
+        dest: "{{ ansible_facts.env.HOME }}/.bashrc"
+        state: link
+        force: true
+    - name: Create symlink rc for zsh
+      ansible.builtin.file:
+        src: "{{ dotfile_home }}/config/.rc"
+        dest: "{{ ansible_facts.env.HOME }}/.zshrc"
+        state: link
+        force: true

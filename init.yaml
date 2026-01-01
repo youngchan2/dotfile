@@ -1,4 +1,5 @@
-- hosts: localhost
+- name: Initialize dotfiles
+  hosts: localhost
   connection: local
   vars_files:
     - version.yaml
@@ -8,11 +9,14 @@
     data_home: "{{ ansible_facts.env.XDG_DATA_HOME | default(ansible_facts.env.HOME ~ '/.local/share') }}"
     config_home: "{{ ansible_facts.env.XDG_CONFIG_HOME | default(ansible_facts.env.HOME ~ '/.config') }}"
   tasks:
-    - import_tasks: task/install/linux/base.yaml
+    - name: Install Linux packages
+      ansible.builtin.import_tasks: task/install/linux/base.yaml
       tags: install
       when: ansible_facts['system'] == 'Linux'
-    - import_tasks: task/install/darwin/base.yaml
+    - name: Install Darwin packages
+      ansible.builtin.import_tasks: task/install/darwin/base.yaml
       tags: install
       when: ansible_facts['system'] == 'Darwin'
-    - import_tasks: task/configure/base.yaml
+    - name: Configure dotfiles
+      ansible.builtin.import_tasks: task/configure/base.yaml
       tags: configure

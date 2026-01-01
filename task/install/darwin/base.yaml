@@ -1,6 +1,6 @@
 ---
-- name: Install packages
-  homebrew:
+- name: Install packages  # noqa: syntax-check[unknown-module]
+  community.general.homebrew:
     name:
       - age
       - bat
@@ -14,11 +14,11 @@
       - bun
     state: present
 - name: Initialize Rust toolchain
-  shell: rustup-init -y --no-modify-path
+  ansible.builtin.command: rustup-init -y --no-modify-path
   args:
     creates: "{{ data_home }}/rustup/settings.toml"
   environment:
     RUSTUP_HOME: "{{ data_home }}/rustup"
     CARGO_HOME: "{{ data_home }}/cargo"
 - name: Install nvm and node
-  import_tasks: ./nvm.yaml
+  ansible.builtin.import_tasks: ./nvm.yaml

@@ -1,7 +1,10 @@
 ---
 - name: Install Rust toolchain via rustup
-  shell: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+  ansible.builtin.shell: |
+    set -o pipefail
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
   args:
+    executable: /bin/bash
     creates: "{{ data_home }}/rustup/settings.toml"
   environment:
     RUSTUP_HOME: "{{ data_home }}/rustup"

@@ -1,40 +1,46 @@
 ---
-- block:
-  - name: Check if gh is installed
-    command: which gh
-    register: gh_installed
-    changed_when: false
-    failed_when: false
-  - name: Get installed gh version
-    shell: gh --version | awk 'match($0, /[0-9]+\.[0-9]+\.[0-9]+/) { printf substr($0, RSTART, RLENGTH); exit }'
-    register: gh_current_version
-    changed_when: false
-    when: gh_installed.rc == 0
-  - name: Set gh installation flag
-    set_fact:
-      gh_install: "{{ gh_installed.rc != 0 or gh_current_version.stdout is version(gh_version, '<') }}"
-  - name: Remove previous gh data
-    file:
-      path: "{{ data_home }}/gh"
-      state: absent
-    when: gh_install
-  - name: Create gh directory
-    file:
-      path: "{{ data_home }}/gh"
-      state: directory
-    when: gh_install
-  - name: Install gh via tarball
-    unarchive:
-      src: "https://github.com/cli/cli/releases/download/v{{ gh_version }}/gh_{{ gh_version }}_linux_amd64.tar.gz"
-      dest: "{{ data_home }}/gh"
-      remote_src: yes
-      extra_opts:
-        - --strip-components=1
-    when: gh_install
-  - name: Create symlink for gh
-    file:
-      src: "{{ data_home }}/gh/bin/gh"
-      dest: "{{ binary_home }}/gh"
-      state: link
-      force: yes
-    when: gh_install
+- name: Install gh
+  block:
+    - name: Check if gh is installed
+      ansible.builtin.command: which gh
+      register: gh_installed
+      changed_when: false
+      failed_when: false
+    - name: Get installed gh version
+      ansible.builtin.shell: |
+        set -o pipefail
+        gh --version | awk 'match($0, /[0-9]+\.[0-9]+\.[0-9]+/) { printf substr($0, RSTART, RLENGTH); exit }'
+      args:
+        executable: /bin/bash
+      register: gh_current_version
+      changed_when: false
+      when: gh_installed.rc == 0
+    - name: Set gh installation flag
+      ansible.builtin.set_fact:
+        gh_install: "{{ gh_installed.rc != 0 or gh_current_version.stdout is version(gh_version, '<') }}"
+    - name: Remove previous gh data
+      ansible.builtin.file:
+        path: "{{ data_home }}/gh"
+        state: absent
+      when: gh_install
+    - name: Create gh directory
+      ansible.builtin.file:
+        path: "{{ data_home }}/gh"
+        state: directory
+        mode: "0755"
+      when: gh_install
+    - name: Install gh via tarball
+      ansible.builtin.unarchive:
+        src: "https://github.com/cli/cli/releases/download/v{{ gh_version }}/gh_{{ gh_version }}_linux_amd64.tar.gz"
+        dest: "{{ data_home }}/gh"
+        remote_src: true
+        extra_opts:
+          - --strip-components=1
+      when: gh_install
+    - name: Create symlink for gh
+      ansible.builtin.file:
+        src: "{{ data_home }}/gh/bin/gh"
+        dest: "{{ binary_home }}/gh"
+        state: link
+        force: true
+      when: gh_install

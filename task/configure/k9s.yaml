@@ -1,21 +1,21 @@
 ---
-- block:
-  - name: Create k9s config directory
-    file:
-      path: "{{ config_home }}/k9s"
-      state: directory
-    when: ansible_facts['system'] == 'Darwin'
-  - name: Create symlink config.yaml
-    file:
-      src: "{{ dotfile_home }}/config/k9s/config.yaml"
-      dest: "{{ config_home }}/k9s/config.yaml"
-      state: link
-      force: yes
-    when: ansible_facts['system'] == 'Darwin'
-  - name: Create symlink skins
-    file:
-      src: "{{ dotfile_home }}/config/k9s/skins"
-      dest: "{{ config_home }}/k9s/skins"
-      state: link
-      force: yes
-    when: ansible_facts['system'] == 'Darwin'
+- name: Configure k9s
+  when: ansible_facts['system'] == 'Darwin'
+  block:
+    - name: Create k9s config directory
+      ansible.builtin.file:
+        path: "{{ config_home }}/k9s"
+        state: directory
+        mode: "0755"
+    - name: Create symlink config.yaml
+      ansible.builtin.file:
+        src: "{{ dotfile_home }}/config/k9s/config.yaml"
+        dest: "{{ config_home }}/k9s/config.yaml"
+        state: link
+        force: true
+    - name: Create symlink skins
+      ansible.builtin.file:
+        src: "{{ dotfile_home }}/config/k9s/skins"
+        dest: "{{ config_home }}/k9s/skins"
+        state: link
+        force: true

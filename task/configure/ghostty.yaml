@@ -1,14 +1,15 @@
 ---
-- block:
-  - name: Create ghostty config directory
-    file:
-      path: "{{ config_home }}/ghostty"
-      state: directory
-    when: ansible_facts['system'] == 'Darwin'
-  - name: Create symlink for Ghostty configuration
-    file:
-      src: "{{ dotfile_home }}/config/ghostty/config"
-      dest: "{{ config_home }}/ghostty/config"
-      state: link
-      force: yes
-    when: ansible_facts['system'] == 'Darwin'
+- name: Configure Ghostty
+  when: ansible_facts['system'] == 'Darwin'
+  block:
+    - name: Create ghostty config directory
+      ansible.builtin.file:
+        path: "{{ config_home }}/ghostty"
+        state: directory
+        mode: "0755"
+    - name: Create symlink for Ghostty configuration
+      ansible.builtin.file:
+        src: "{{ dotfile_home }}/config/ghostty/config"
+        dest: "{{ config_home }}/ghostty/config"
+        state: link
+        force: true

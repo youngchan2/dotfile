@@ -1,21 +1,21 @@
 ---
-- block:
-  - name: Create Zed configuration directory
-    file:
-      path: "{{ config_home }}/zed"
-      state: directory
-    when: ansible_facts['system'] == 'Darwin'
-  - name: Create symlink settings.json
-    file:
-      src: "{{ dotfile_home }}/config/zed/settings.json"
-      dest: "{{ config_home }}/zed/settings.json"
-      state: link
-      force: yes
-    when: ansible_facts['system'] == 'Darwin'
-  - name: Create symlink keymap.json
-    file:
-      src: "{{ dotfile_home }}/config/zed/keymap.json"
-      dest: "{{ config_home }}/zed/keymap.json"
-      state: link
-      force: yes
-    when: ansible_facts['system'] == 'Darwin'
+- name: Configure zed
+  when: ansible_facts['system'] == 'Darwin'
+  block:
+    - name: Create Zed configuration directory
+      ansible.builtin.file:
+        path: "{{ config_home }}/zed"
+        state: directory
+        mode: "0755"
+    - name: Create symlink settings.json
+      ansible.builtin.file:
+        src: "{{ dotfile_home }}/config/zed/settings.json"
+        dest: "{{ config_home }}/zed/settings.json"
+        state: link
+        force: true
+    - name: Create symlink keymap.json
+      ansible.builtin.file:
+        src: "{{ dotfile_home }}/config/zed/keymap.json"
+        dest: "{{ config_home }}/zed/keymap.json"
+        state: link
+        force: true
