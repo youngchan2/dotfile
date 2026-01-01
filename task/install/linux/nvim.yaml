@@ -18,10 +18,14 @@
     - name: Set nvim installation flag
       ansible.builtin.set_fact:
         nvim_install: "{{ nvim_installed.rc != 0 or nvim_current_version.stdout is version(nvim_version, '<') }}"
-    - name: Remove previous neovim data
+    - name: Remove previous neovim binary files
       ansible.builtin.file:
-        path: "{{ data_home }}/nvim"
+        path: "{{ data_home }}/nvim/{{ item }}"
         state: absent
+      loop:
+        - bin
+        - lib
+        - share
       when: nvim_install
     - name: Create nvim directory
       ansible.builtin.file:
