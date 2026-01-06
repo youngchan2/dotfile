@@ -142,7 +142,6 @@
       "hard_tabs": true
     },
     "Python": {
-      "language_servers": ["basedpyright", "ruff"],
       "formatter": [
         { "code_action": "source.fixAll.ruff" },
         { "code_action": "source.organizeImports.ruff" },
@@ -245,15 +244,15 @@
     "default_width": 560,
     "default_model": {
       "provider": "copilot_chat",
-      "model": "gpt-4.1"
+      "model": "gpt-5.2"
     },
     "inline_assistant_model": {
       "provider": "copilot_chat",
-      "model": "gpt-4.1"
+      "model": "claude-sonnet-4.5"
     },
     "commit_message_model": {
       "provider": "copilot_chat",
-      "model": "gpt-4.1"
+      "model": "gpt-5.2"
     },
     "always_allow_tool_actions": false,
     "default_profile": "minimal",
