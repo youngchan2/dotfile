@@ -17,8 +17,8 @@ err() {
   exit 1
 }
 
-if ! git pull origin main; then
-  err "Failed to pull from origin/main"
+if ! git pull upstream main; then
+  err "Failed to pull from upstream/main"
 fi
 
 DOTFILE_DIR="$HOME/dotfile"

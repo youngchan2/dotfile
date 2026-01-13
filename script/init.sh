@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-DOTFILE_REPOSITORY="git@github.com:sgncho/dotfile.git"
+HTTPS_DOTFILE_REPOSITORY="https://github.com/sgncho/dotfile.git"
+SSH_DOTFILE_REPOSITORY="git@github.com:sgncho/dotfile.git"
 
 set -e
 
@@ -70,12 +71,17 @@ clone_dotfile_repository() {
   else
     if [ -d "$DOTFILE_DIR" ]; then
       echo "dotfile directory already exists at $DOTFILE_DIR"
-      if ! (cd "$DOTFILE_DIR" && git pull origin main 2> /dev/null); then
+      if ! (cd "$DOTFILE_DIR" && git pull upstream main 2> /dev/null); then
         err "failed to pull updates in existing dotfile repository."
       fi
       echo "dotfile repository updated."
-    elif git clone "$DOTFILE_REPOSITORY" "$DOTFILE_DIR"; then
+    elif git clone "$HTTPS_DOTFILE_REPOSITORY" "$DOTFILE_DIR"; then
       echo "dotfile repository cloned successfully."
+      # Set up remotes: origin (SSH) for push, upstream (HTTPS) for automated pull
+      cd "$DOTFILE_DIR"
+      git remote rename origin upstream
+      git remote add origin "$SSH_DOTFILE_REPOSITORY"
+      echo "remotes configured: origin (SSH), upstream (HTTPS)"
     else
       err "failed to clone dotfile repository."
     fi
