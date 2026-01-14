@@ -10,7 +10,7 @@ Usage:
 EOF
 }
 
-CODER="codex"
+CODER="codex --sandbox workspace-write --ask-for-approval on-failure"
 if [[ "${1-}" == "--claude" ]]; then
   CODER="claude"
   shift
@@ -22,6 +22,36 @@ if [[ "${1-}" == "clean" ]]; then
   mkdir -p "$WORKTREE_HOME"
   rm -rf -- "$WORKTREE_HOME"/* "$WORKTREE_HOME"/.[!.]* "$WORKTREE_HOME"/..?* 2> /dev/null || true
   exit 0
+fi
+
+if [[ "${1-}" == "resume" ]]; then
+  shift
+  REPO_ROOT="$(git rev-parse --show-toplevel 2> /dev/null)"
+  if [[ -z "$REPO_ROOT" ]]; then
+    echo "Not inside a git repository." >&2
+    exit 1
+  fi
+  if [[ $# -gt 1 ]]; then
+    usage
+    exit 1
+  fi
+  if [[ $# -eq 1 ]]; then
+    BRANCH="$1"
+  else
+    BRANCH="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
+  fi
+  if [[ -z "$BRANCH" || "$BRANCH" == "HEAD" ]]; then
+    echo "Could not determine current branch." >&2
+    exit 1
+  fi
+  REPO_NAME="$(basename "$REPO_ROOT")"
+  WORKTREE_PATH="${WORKTREE_HOME}/${REPO_NAME}/${BRANCH}"
+  if [[ ! -d "$WORKTREE_PATH" ]]; then
+    echo "Worktree not found: $WORKTREE_PATH" >&2
+    exit 1
+  fi
+  cd "$WORKTREE_PATH"
+  exec "$CODER"
 fi
 
 if [[ $# -ne 1 ]]; then
