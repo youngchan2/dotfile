@@ -17,11 +17,15 @@ err() {
   exit 1
 }
 
-if ! git pull upstream main; then
-  err "Failed to pull from upstream/main"
-fi
-
 DOTFILE_DIR="$HOME/dotfile"
 
 cd "$DOTFILE_DIR"
+
+if ! git pull upstream main; then
+  echo "upstream pull failed, trying origin/main" >&2
+  if ! git pull origin main; then
+    err "Failed to pull from upstream/main or origin/main"
+  fi
+fi
+
 ansible-playbook -i localhost, init.yaml

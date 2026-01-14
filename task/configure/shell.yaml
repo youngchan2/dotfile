@@ -31,3 +31,14 @@
         dest: "{{ ansible_facts.env.HOME }}/.zshrc"
         state: link
         force: true
+    - name: Ensure ~/.local/bin exists
+      ansible.builtin.file:
+        path: "{{ ansible_facts.env.HOME }}/.local/bin"
+        state: directory
+        mode: "0755"
+    - name: Create symlink for forktree
+      ansible.builtin.file:
+        src: "{{ dotfile_home }}/script/forktree"
+        dest: "{{ ansible_facts.env.HOME }}/.local/bin/forktree"
+        state: link
+        force: true
