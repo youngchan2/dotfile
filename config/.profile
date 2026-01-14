@@ -77,3 +77,6 @@ fi
 
 # claude code
 export CLAUDE_CONFIG_DIR="$XDG_CONFIG_HOME/claude"
+
+# codex
+export CODEX_HOME="$XDG_CONFIG_HOME/codex"
